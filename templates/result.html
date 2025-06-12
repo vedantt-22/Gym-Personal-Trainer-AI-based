@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Weekly Gym & Diet Plan</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            width: 90%;
+            max-width: 700px;
+        }
+        h1, h2, h3 {
+            color: #ffcc00;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background: #ffcc00;
+            color: black;
+        }
+        td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ffcc00;
+            color: black;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            background: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Plan for {{ goal }} - {{ diet_type }} Diet</h1>
+        <h3>User Details:</h3>
+        <p>Age: {{ age }}, Weight: {{ weight }} kg, Fitness Level: {{ fitness_level }}</p>
+        
+        <h2>Exercise Plan</h2>
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Exercise</th>
+            </tr>
+            {% for day, exercise in exercise_plan.items() %}
+            <tr>
+                <td>{{ day }}</td>
+                <td>{{ exercise }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <h2>Diet Plan</h2>
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Meal</th>
+                <th>Plan</th>
+            </tr>
+            {% for day, meals in diet_plan.items() %}
+                {% for meal, details in meals.items() %}
+                <tr>
+                    {% if loop.first %}
+                    <td rowspan="{{ meals|length }}">{{ day }}</td>
+                    {% endif %}
+                    <td>{{ meal }}</td>
+                    <td>{{ details }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+        
+        <a href="/">Done</a>
+    </div>
+</body>
+</html>
